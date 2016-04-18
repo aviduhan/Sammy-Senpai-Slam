@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
 	public float jumpHeight;
 	public bool isJumping = false;
+	private bool airDash = true;
 
 	public KeyCode projectileShoot;
 	public KeyCode attackOne;
@@ -217,20 +218,49 @@ public class PlayerMovement : MonoBehaviour
 		{
 			isJumping = false;
 			anim.SetBool("OnGround", true);
+			airDash = true;
 		}
 	}
 		
 	IEnumerator DashRight()
 	{
+		if (!isJumping)
+		{
 		GetComponent<Rigidbody2D> ().AddForce ((Vector2.right * 650));
 		yield return new WaitForSeconds (0.25f);
 		GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
+		}
+		else
+		{
+			if(airDash)
+			{
+				GetComponent<Rigidbody2D> ().AddForce ((Vector2.right * 650));
+				yield return new WaitForSeconds (0.25f);
+				GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
+				airDash = false;
+			}
+		}
 	}
 
 	IEnumerator DashLeft()
 	{
+		if (!isJumping)
+		{
 		GetComponent<Rigidbody2D> ().AddForce ((Vector2.left * 650));
 		yield return new WaitForSeconds (0.25f);
 		GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
+		}
+		else
+		{
+			if(airDash)
+			{
+				GetComponent<Rigidbody2D> ().AddForce ((Vector2.right * 650));
+				yield return new WaitForSeconds (0.25f);
+				GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
+				airDash = false;
+			}
+			
+		}
+			
 	}
 }
