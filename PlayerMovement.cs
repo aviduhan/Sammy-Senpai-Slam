@@ -254,7 +254,7 @@ public class PlayerMovement : MonoBehaviour
 		{
 			if(airDash)
 			{
-				GetComponent<Rigidbody2D> ().AddForce ((Vector2.right * 650));
+				GetComponent<Rigidbody2D> ().AddForce ((Vector2.left * 650));
 				yield return new WaitForSeconds (0.25f);
 				GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
 				airDash = false;
